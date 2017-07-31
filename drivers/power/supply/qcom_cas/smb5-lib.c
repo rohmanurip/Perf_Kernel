@@ -21,6 +21,10 @@
 #include "storm-watch.h"
 #include "schgm-flash.h"
 
+#ifdef CONFIG_FORCE_FAST_CHARGE
+#include <linux/fastchg.h>
+#endif
+
 #define smblib_err(chg, fmt, ...)		\
 	pr_err("%s: %s: " fmt, chg->name,	\
 		__func__, ##__VA_ARGS__)	\
@@ -1759,6 +1763,7 @@ static int set_sdp_current(struct smb_charger *chg, int icl_ua)
 	const struct apsd_result *apsd_result = smblib_get_apsd_result(chg);
 	union power_supply_propval val = {0, };
 
+<<<<<<< HEAD:drivers/power/supply/qcom_cas/smb5-lib.c
 	if (chg->batt_2s_chg) {
 		val.intval = icl_ua;
 		return smblib_set_prop_on_bbc(chg,
@@ -1785,6 +1790,36 @@ static int set_sdp_current(struct smb_charger *chg, int icl_ua)
 		default:
 			return -EINVAL;
 		}
+=======
+#ifdef CONFIG_FORCE_FAST_CHARGE
+	if (force_fast_charge > 0 && icl_ua == USBIN_500MA)
+	{
+		icl_ua = USBIN_900MA;
+	}
+#endif
+
+	/* power source is SDP */
+	switch (icl_ua) {
+	case USBIN_100MA:
+		/* USB 2.0 100mA */
+		icl_options = 0;
+		break;
+	case USBIN_150MA:
+		/* USB 3.0 150mA */
+		icl_options = CFG_USB3P0_SEL_BIT;
+		break;
+	case USBIN_500MA:
+		/* USB 2.0 500mA */
+		icl_options = USB51_MODE_BIT;
+		break;
+	case USBIN_900MA:
+		/* USB 3.0 900mA */
+		icl_options = CFG_USB3P0_SEL_BIT | USB51_MODE_BIT;
+		break;
+	default:
+		return -EINVAL;
+	}
+>>>>>>> 071f55b53ace (drivers: misc: implement usb fast charge mode):drivers/power/supply/qcom/smb5-lib-poussin.c
 
 		if (chg->real_charger_type == POWER_SUPPLY_TYPE_USB &&
 			apsd_result->pst == POWER_SUPPLY_TYPE_USB_FLOAT) {

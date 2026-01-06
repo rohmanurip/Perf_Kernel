@@ -1,4 +1,4 @@
-name: Build FusionX 2.1 (RKSU)
+name: Build Perf+ (RKSU)
 
 on:
   workflow_dispatch:

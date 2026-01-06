@@ -17,7 +17,7 @@ on:
         required: true
       CLANG_TOOLCHAIN:
         description: 'Clang toolchain selection'
-        default: 'aosp clang 21'
+        default: 'aosp clang 20'
         required: true
         type: choice
         options:
@@ -273,7 +273,7 @@ jobs:
                   file_branch = "Unknown"
 
               caption = f"""<pre>
-                <b> Lunar Kernel Build Complete! </b>
+                <b> Perf Kernel Build Complete! </b>
                 ==============================
                 <b> Date:</b>        {build_date}
                 <b> Branch:</b>      {file_branch}

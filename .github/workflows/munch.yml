@@ -1,4 +1,4 @@
-name: Build Perf+
+name: Build Perf+ (rksu)
 
 on:
   workflow_dispatch:

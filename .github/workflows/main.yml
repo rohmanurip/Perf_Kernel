@@ -184,3 +184,14 @@ jobs:
         with:
           name: ${{ env.ZIP_NAME }}
           path: ${{ env.ZIP_NAME }}.zip
+          
+      - name: Checkout 
+        uses: actions/checkout@v4
+          
+      - name: Downlod Artifacts 
+        uses: actions/download-artifact@v4
+
+      - name: List Files
+        run: ls -R
+
+        

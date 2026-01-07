@@ -1,4 +1,4 @@
-name: Build Perf+
+name: Build Perf+ (RKSU)
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ on:
         required: true
       KERNEL_BRANCH:
         description: 'Kernel Branch'
-        default: 'base'
+        default: 'rksu-susfs'
         required: true
       VERSION:
         description: 'Kernel Version'
@@ -183,7 +183,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ZIP_NAME }}
-          path: ../${{ env.ZIP_NAME }}.zip
+          path: ${{ env.ZIP_NAME }}.zip
           
       - name: Download Zip
         uses: actions/download-artifact@v4

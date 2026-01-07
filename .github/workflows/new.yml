@@ -172,7 +172,7 @@ jobs:
           COMPILED_DATE=$(date +%Y%m%d)
           BRANCH_NAME="${{ env.KERNEL_BRANCH }}"
           VERSION="${{ github.event.inputs.VERSION }}"
-          echo "ZIP_NAME=[Perf+]-${VERSION}-${COMPILED_DATE}" >> $GITHUB_ENV
+          echo "ZIP_NAME=[Perf+]-${VERSION}" >> $GITHUB_ENV
 
       - name: Zip AnyKernel3
         run: |

@@ -1,4 +1,4 @@
-name: Build Perf+ (RKSU)
+name: Build Perf+
 
 on:
   workflow_dispatch:
@@ -9,11 +9,11 @@ on:
         required: true
       KERNEL_BRANCH:
         description: 'Kernel Branch'
-        default: 'rksu-susfs'
+        default: 'rksu'
         required: true
       VERSION:
         description: 'Kernel Version'
-        default: '1.0.0'
+        default: '1.0.1'
         required: true
       CLANG_TOOLCHAIN:
         description: 'Clang toolchain selection'

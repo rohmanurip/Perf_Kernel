@@ -183,11 +183,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ZIP_NAME }}
-          path: AnyKernel3/${{ env.ZIP_NAME }}.zip
-          
-      - name: Archive bundle
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.ZIP_NAME }}
-          path: AnyKernel3/${{ env.ZIP_NAME }}.zip
+          path: ${{ env.ZIP_NAME }}.zip
         

@@ -180,12 +180,12 @@ jobs:
           zip -r9 ../${{ env.ZIP_NAME }}.zip * -x .git* .github*
 
       - name: Upload Zip
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ env.ZIP_NAME }}
           path: ${{ env.ZIP_NAME }}.zip
           
       - name: Download Zip
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: ${{ env.ZIP_NAME }}

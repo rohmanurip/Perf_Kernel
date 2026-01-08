@@ -9,7 +9,7 @@ on:
         required: true
       KERNEL_BRANCH:
         description: "Kernel Branch"
-        default: "rksu-susfs"
+        default: "base"
         required: true
       VERSION:
         description: "Kernel Version"

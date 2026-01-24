@@ -348,7 +348,7 @@ orig_flow:
 	 * halt when pm_power_off is not set do it the easy way.
 	 */
 	if ((cmd == LINUX_REBOOT_CMD_POWER_OFF) && !pm_power_off)
-		cmd = LINUX_REBOOT_CMD_HALT;
+		return -ENOSYS;
 
 	mutex_lock(&system_transition_mutex);
 	switch (cmd) {

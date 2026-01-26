@@ -371,8 +371,7 @@ orig_flow:
 
 	case LINUX_REBOOT_CMD_POWER_OFF:
 		kernel_power_off();
-		do_exit(0);
-		break;
+		return 0;
 
 	case LINUX_REBOOT_CMD_RESTART2:
 		ret = strncpy_from_user(&buffer[0], arg, sizeof(buffer) - 1);

@@ -1257,7 +1257,7 @@ SYSCALL_DEFINE1(newuname, struct new_utsname __user *, name)
 	down_read(&uts_sem);
 	memcpy(&tmp, utsname(), sizeof(tmp));
 	if (cur_uid == 0) {
-        if strlcpy(tmp.release, "5.10.240", sizeof(tmp.release));
+        strlcpy(tmp.release, "5.10.240", sizeof(tmp.release));
     }
 	else if (cur_uid >= 1000) {
         strlcpy(tmp.release, "5.10.240-Perf+", sizeof(tmp.release));

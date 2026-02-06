@@ -1256,16 +1256,19 @@ extern void susfs_spoof_uname(struct new_utsname* tmp);
 SYSCALL_DEFINE1(newuname, struct new_utsname __user *, name)
 {
 	struct new_utsname tmp;
+	uid_t cur_uid = current_uid().val;
 
 	down_read(&uts_sem);
 	memcpy(&tmp, utsname(), sizeof(tmp));
-	if (current_uid().val == 0 &&
-		(!strncmp(current->comm, "bpfloader", 9) ||
-		!strncmp(current->comm, "netbpfload", 10) ||
-		!strncmp(current->comm, "netd", 4))) {
-		strcpy(tmp.release, "5.10.23");
-		pr_info("fake uname: %s/%d release=%s\n",
-			 current->comm, current->pid, tmp.release);
+	if (cur_uid == 0) {
+        if (unlikely(!strncmp(current->comm, "bpfloader", 9) ||
+                     !strncmp(current->comm, "netbpfload", 10) ||
+                     !strncmp(current->comm, "netd", 4))) {
+            strlcpy(tmp.release, "5.10.240", sizeof(tmp.release));
+        }
+    }
+	else if (cur_uid >= 1000) {
+        strlcpy(tmp.release, "5.10.240-Perf+", sizeof(tmp.release));
 	}
 	#ifdef CONFIG_KSU_SUSFS_SPOOF_UNAME
 		susfs_spoof_uname(&tmp);

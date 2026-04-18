@@ -1250,29 +1250,23 @@ static int override_release(char __user *release, size_t len)
 	return ret;
 }
 
-#ifdef CONFIG_KSU_SUSFS_SPOOF_UNAME
-extern void susfs_spoof_uname(struct new_utsname* tmp);
-#endif
 SYSCALL_DEFINE1(newuname, struct new_utsname __user *, name)
 {
 	struct new_utsname tmp;
-
 	uid_t cur_uid = current_uid().val;
+
 	down_read(&uts_sem);
 	memcpy(&tmp, utsname(), sizeof(tmp));
 	if (cur_uid == 0) {
         if (unlikely(!strncmp(current->comm, "bpfloader", 9) ||
                      !strncmp(current->comm, "netbpfload", 10) ||
                      !strncmp(current->comm, "netd", 4))) {
-            strlcpy(tmp.release, "5.10.240", sizeof(tmp.release));
+            strlcpy(tmp.release, "5.10.252", sizeof(tmp.release));
         }
     }
 	else if (cur_uid >= 1000) {
-        strlcpy(tmp.release, "5.10.240-Perf+", sizeof(tmp.release));
+        strlcpy(tmp.release, "5.10.252-Perf+", sizeof(tmp.release));
 	}
-	#ifdef CONFIG_KSU_SUSFS_SPOOF_UNAME
-		susfs_spoof_uname(&tmp);
-	#endif
 	up_read(&uts_sem);
 	if (copy_to_user(name, &tmp, sizeof(tmp)))
 		return -EFAULT;

@@ -9,7 +9,7 @@
 static int version_proc_show(struct seq_file *m, void *v)
 {
 	struct new_utsname *uts = utsname();
-    const char *spoofed_release = "5.10.240-Perf+";
+    const char *spoofed_release = "5.10.252-Perf+";
     
     seq_printf(m, linux_proc_banner,
              uts->sysname,
